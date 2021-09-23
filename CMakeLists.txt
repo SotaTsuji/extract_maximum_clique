@@ -1,12 +1,12 @@
 ﻿cmake_minimum_required(VERSION 3.10)
 enable_language(CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(test_extraction_maximum_clique)
+project(test_extract_maximum_clique)
 enable_testing()
-add_subdirectory(extraction_maximum_clique)
+add_subdirectory(extract_maximum_clique)
 add_subdirectory(test)
 
 if(MSVC)

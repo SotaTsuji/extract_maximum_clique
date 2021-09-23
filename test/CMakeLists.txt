@@ -3,10 +3,10 @@
 find_package(GTest REQUIRED)
 include(GoogleTest)
 
-add_executable(Test test_extraction_maximum_clique.cpp)
-target_link_libraries(Test extraction_maximum_clique
-                      GTest::GTest
-                      GTest::Main)
+add_executable(Test test_extract_maximum_clique.cpp test_calculate_km.cpp)
+target_link_libraries(Test
+                      extract_maximum_clique calculate_km
+                      GTest::GTest GTest::Main)
 include_directories(${PROJECT_SOURCE_DIR}/src
                     ${GTEST_INCLUDE_DIRS})
 

@@ -13,7 +13,7 @@ using Matrix = vector<vector<int>>;
 using Polynomial = vector<int>;
 
 // int get_maximum_coefficient(const int n);
-// vector<int> get_prime_list(const int n, const int c);
+vector<int> get_prime_list(const int n, const int c);
 // Polynomial get_coefficient(const WeightedGraph& S);
 // tuple<Polynomial, Polynomial, int> polynomial_division(const Polynomial& f,
 //                                                        const Polynomial& g);

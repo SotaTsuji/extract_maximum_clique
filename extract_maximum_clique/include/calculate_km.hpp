@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include "graph.hpp"
 using namespace std;
 
@@ -18,7 +20,7 @@ using Polynomial = vector<int>;
 // int get_number_of_roots(Polynomial f);
 // int get_km(const WeightedGraph& S);
 
-// bool is_prime(const int i);
+vector<int> sieve_of_Eratosthenes(const int k);
 // Matrix get_double_adjacent_matrix(const WeightedGraph& S);
 // Polynomial get_coefficient_by_modulo(const WeightedGraph& S, const int p);
 // Polynomial merge_coefficients(const Polynomial& f, const Polynomial& g);

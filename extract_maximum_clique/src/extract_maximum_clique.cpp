@@ -10,7 +10,7 @@ using namespace std;
 
 // Algorithm 1
 bool is_complete_graph(const WeightedGraph& T) {
-    auto es = T.e.size(), vs = T.v.size();
+    const auto es = T.e.size(), vs = T.v.size();
     if (es == (vs * vs - vs) / 2) {
         for (auto i = 0; i < vs - 1; ++i) {
             for (auto j = i + 1; j < vs; ++j) {

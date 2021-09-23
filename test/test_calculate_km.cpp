@@ -24,6 +24,22 @@ TEST(GetPrimeListTest, Inputs) {
     EXPECT_EQ(prime_list2, get_prime_list(5, 10'000'000));
 }
 
+TEST(GetDoubleAdjacentMatrixTest, Inputs) {
+    WeightedGraph S1;
+    S1.v = {1, 2};
+    S1.e = {{1, 2}};
+    S1.rw[{1, 2}] = 1;
+    const Matrix A1 = {{0, 2}, {2, 0}};
+    WeightedGraph S2;
+    S2.v = {2, 3, 5};
+    S2.e = {{2, 3}, {3, 5}};
+    S2.rw[{2, 3}] = 1;
+    S2.rw[{3, 5}] = 2;
+    const Matrix A2 = {{0, 2, 0}, {2, 0, 1}, {0, 1, 0}};
+    EXPECT_EQ(A1, get_double_adjacent_matrix(S1));
+    EXPECT_EQ(A2, get_double_adjacent_matrix(S2));
+}
+
 TEST(DifferentialTest, Input) {
     const Polynomial f = {2};
     const Polynomial f_;

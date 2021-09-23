@@ -47,6 +47,19 @@ vector<int> sieve_of_Eratosthenes(const int k) {
     return primes;
 }
 
+Matrix get_double_adjacent_matrix(const WeightedGraph& S) {
+    auto n = S.v.size();
+    Matrix A(n, vector<int>(n));
+    for (auto i = 0; i < n - 1; ++i) {
+        for (auto j = i + 1; j < n; ++j) {
+            if (S.e.contains({S.v[i], S.v[j]})) {
+                A[i][j] = A[j][i] = 2 / S.rw.at({S.v[i], S.v[j]});
+            }
+        }
+    }
+    return A;
+}
+
 Polynomial differential(const Polynomial& f) {
     Polynomial f_;
     for (auto i = 1; i < f.size(); ++i) {

@@ -5,15 +5,15 @@
 #include "../include/calculate_km.hpp"
 
 #include <numeric>
-#include <vector>
 
 #include "../include/graph.hpp"
+
 using namespace std;
 
 // Algorithm 8
 Bint get_maximum_coefficient(const int n) {
-    int r = (n + 1) / 2;
-    int lambda_max = 2 * (n - 1);
+    const int r = (n + 1) / 2;
+    const int lambda_max = 2 * (n - 1);
     Bint c_n = 1;
     Bint c_d = 1;
     Bint s = 1;
@@ -27,7 +27,7 @@ Bint get_maximum_coefficient(const int n) {
 
 // Algorithm 9
 vector<int> get_prime_list(const int n, const Bint c) {
-    auto primes = sieve_of_Eratosthenes(4 * n * n - 1);
+    const auto primes = sieve_of_Eratosthenes(4 * n * n - 1);
     Bint s = 1;
     vector<int> prime_list;
     for (auto i = primes.size() - 1; i >= 0; --i) {
@@ -63,7 +63,7 @@ vector<int> sieve_of_Eratosthenes(const int k) {
 }
 
 Matrix get_double_adjacent_matrix(const WeightedGraph& S) {
-    auto n = S.v.size();
+    const auto n = S.v.size();
     Matrix A(n, vector<int>(n));
     for (auto i = 0; i < n - 1; ++i) {
         for (auto j = i + 1; j < n; ++j) {

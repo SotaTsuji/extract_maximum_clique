@@ -5,6 +5,7 @@
 #pragma once
 
 #include "graph.hpp"
+
 using namespace std;
 
 bool is_complete_graph(const WeightedGraph& T);

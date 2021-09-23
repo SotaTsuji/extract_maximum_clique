@@ -13,6 +13,7 @@ English version: https://www.researchgate.net/publication/347522479_Polynomial-t
 
 * compiler that implements c++20
 * cmake 3.10
+* boost 1.74.0
 * googletest 1.11.0
 
 # Usage

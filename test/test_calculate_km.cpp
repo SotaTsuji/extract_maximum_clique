@@ -4,11 +4,14 @@
 
 #include <gtest/gtest.h>
 
-#include <vector>
-
 #include "calculate_km.hpp"
 #include "graph.hpp"
 using namespace std;
+
+TEST(GetMaximumCoefficient, AtLeast2) {
+    EXPECT_EQ(4, get_maximum_coefficient(2));
+    EXPECT_EQ(29'568'000'000, get_maximum_coefficient(11));
+}
 
 TEST(SieveOfEratosthenesTest, AtLeast2) {
     const vector<int> primes1 = {2};
@@ -19,12 +22,12 @@ TEST(SieveOfEratosthenesTest, AtLeast2) {
 
 TEST(GetPrimeListTest, Inputs) {
     const vector<int> prime_list1 = {13, 11, 7};
-    const vector<int> prime_list2 = {97, 89, 83, 79};
+    const vector<int> prime_list2 = {97, 89, 83, 79, 73, 71};
     EXPECT_EQ(prime_list1, get_prime_list(2, 500));
-    EXPECT_EQ(prime_list2, get_prime_list(5, 10'000'000));
+    EXPECT_EQ(prime_list2, get_prime_list(5, 100'000'000'000));
 }
 
-TEST(GetDoubleAdjacentMatrixTest, Inputs) {
+TEST(GetDoubleAdjacentMatrixTest, Input) {
     WeightedGraph S1;
     S1.v = {1, 2};
     S1.e = {{1, 2}};

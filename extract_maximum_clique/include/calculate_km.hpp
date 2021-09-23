@@ -4,18 +4,21 @@
 
 #pragma once
 
+#include <boost/multiprecision/cpp_int.hpp>
 #include <vector>
 
 #include "graph.hpp"
+
 using namespace std;
 
+using Bint = boost::multiprecision::cpp_int;
 using Matrix = vector<vector<int>>;
-using Polynomial = vector<int>;
+using Polynomial = vector<Bint>;
 
-// int get_maximum_coefficient(const int n);
-vector<int> get_prime_list(const int n, const int c);
+Bint get_maximum_coefficient(const int n);
+vector<int> get_prime_list(const int n, const Bint c);
 // Polynomial get_coefficient(const WeightedGraph& S);
-// tuple<Polynomial, Polynomial, int> polynomial_division(const Polynomial& f,
+// tuple<Polynomial, Polynomial, Bint> polynomial_division(const Polynomial& f,
 //                                                        const Polynomial& g);
 // int get_number_of_roots(Polynomial f);
 // int get_km(const WeightedGraph& S);

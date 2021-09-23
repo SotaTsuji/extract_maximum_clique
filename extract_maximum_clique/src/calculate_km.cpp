@@ -10,10 +10,25 @@
 #include "../include/graph.hpp"
 using namespace std;
 
+// Algorithm 8
+Bint get_maximum_coefficient(const int n) {
+    int r = (n + 1) / 2;
+    int lambda_max = 2 * (n - 1);
+    Bint c_n = 1;
+    Bint c_d = 1;
+    Bint s = 1;
+    for (auto i = 1; i <= r; ++i) {
+        c_n *= (n - i + 1);
+        c_d *= i;
+        s *= lambda_max;
+    }
+    return s * c_n / c_d;
+}
+
 // Algorithm 9
-vector<int> get_prime_list(const int n, const int c) {
+vector<int> get_prime_list(const int n, const Bint c) {
     auto primes = sieve_of_Eratosthenes(4 * n * n - 1);
-    int s = 1;
+    Bint s = 1;
     vector<int> prime_list;
     for (auto i = primes.size() - 1; i >= 0; --i) {
         int p_i = primes[i];

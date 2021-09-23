@@ -28,11 +28,11 @@ static int create_graph = []() {
 }();
 
 TEST(IsCompleteGraphTest, True) {
-    EXPECT_EQ(true, is_complete_graph(T1));
-    EXPECT_EQ(true, is_complete_graph(T2));
+    EXPECT_TRUE(is_complete_graph(T1));
+    EXPECT_TRUE(is_complete_graph(T2));
 }
 
 TEST(IsCompleteGraphTest, False) {
-    EXPECT_EQ(false, is_complete_graph(T3));
-    EXPECT_EQ(false, is_complete_graph(T4));
+    EXPECT_FALSE(is_complete_graph(T3));
+    EXPECT_FALSE(is_complete_graph(T4));
 }

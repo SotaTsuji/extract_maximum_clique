@@ -24,5 +24,5 @@ vector<int> sieve_of_Eratosthenes(const int k);
 // Matrix get_double_adjacent_matrix(const WeightedGraph& S);
 // Polynomial get_coefficient_by_modulo(const WeightedGraph& S, const int p);
 // Polynomial merge_coefficients(const Polynomial& f, const Polynomial& g);
-// Polynomial differential(const Polynomial& f);
+Polynomial differential(const Polynomial& f);
 // int get_number_of_roots_by_strum(const Polynomial& f);

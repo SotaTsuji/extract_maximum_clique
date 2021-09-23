@@ -46,3 +46,11 @@ vector<int> sieve_of_Eratosthenes(const int k) {
     }
     return primes;
 }
+
+Polynomial differential(const Polynomial& f) {
+    Polynomial f_;
+    for (auto i = 1; i < f.size(); ++i) {
+        f_.push_back(f[i] * i);
+    }
+    return f_;
+}

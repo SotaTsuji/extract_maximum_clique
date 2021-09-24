@@ -41,15 +41,42 @@ vector<int> get_prime_list(const int n, const Bint c) {
     return prime_list;
 }
 
+// Algorithm 11
+tuple<Polynomial, Polynomial, Bint> polynomial_division(Polynomial f,
+                                                        const Polynomial& g) {
+    const int n = f.size() - 1, m = g.size() - 1;
+    Polynomial q(n - m + 1);
+    Bint c = 1;
+    for (auto i = n; i >= m; --i) {
+        const Bint c_ = g[m] / gcd(f[i], g[m]);
+        for (auto j = n; j > i; --j) {
+            q[j - m] *= c_;
+        }
+        for (auto j = 0; j <= i; ++j) {
+            f[j] *= c_;
+        }
+        c *= c_;
+        q[i - m] = f[i] / g[m];
+        f[i] = 0;
+        for (auto j = 1; j <= m; ++j) {
+            f[i - j] -= q[i - m] * g[m - j];
+        }
+    }
+    while (!f.empty() && f.back() == 0) {
+        f.pop_back();
+    }
+    return {q, f, c};
+}
+
 vector<int> sieve_of_Eratosthenes(const int k) {
     vector<int> primes(k - 1);
     iota(primes.begin(), primes.end(), 2);
     for (auto i = 0;; ++i) {
         auto itr = primes.begin() + i;
-        if ((*itr) * (*itr) > k) {
+        const int divisor = *itr;
+        if (divisor * divisor > k) {
             break;
         }
-        const int divisor = *itr;
         ++itr;
         while (itr != primes.end()) {
             if ((*itr) % divisor == 0) {

@@ -18,8 +18,8 @@ using Polynomial = vector<Bint>;
 Bint get_maximum_coefficient(const int n);
 vector<int> get_prime_list(const int n, const Bint c);
 // Polynomial get_coefficient(const WeightedGraph& S);
-// tuple<Polynomial, Polynomial, Bint> polynomial_division(const Polynomial& f,
-//                                                        const Polynomial& g);
+tuple<Polynomial, Polynomial, Bint> polynomial_division(Polynomial f,
+                                                        const Polynomial& g);
 // int get_number_of_roots(Polynomial f);
 // int get_km(const WeightedGraph& S);
 

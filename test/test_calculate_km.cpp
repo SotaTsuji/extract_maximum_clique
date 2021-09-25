@@ -134,3 +134,51 @@ TEST(GetNumberOfRootsByStrumTest, xxx) {
     EXPECT_EQ(0, get_number_of_roots_by_strum(f2));
     EXPECT_EQ(1, get_number_of_roots_by_strum(f3));
 }
+
+TEST(GetCoefficientTest, xxx) {
+    const WeightedGraph S1 = {Vertices{1, 2}, Edges{{1, 2}},
+                              ReciprocalWeights{{{1, 2}, 1}}},
+                        S2 = {Vertices{2, 3, 5}, Edges{{2, 3}, {3, 5}},
+                              ReciprocalWeights{
+                                  {{2, 3}, 1},
+                                  {{3, 5}, 2},
+                              }};
+    const Polynomial h1 = {-4, 0, 1};
+    const Polynomial h2 = {0, -5, 0, 1};
+    EXPECT_EQ(h1, get_coefficient(S1));
+    EXPECT_EQ(h2, get_coefficient(S2));
+}
+
+TEST(CalculateDeterminantTest, xxx) {
+    const PolynomialMatrix A1 = {{{10, -3, 5}}};
+    const PolynomialMatrix A2 = {
+        {{1, -1}, {2}, {3}}, {{3}, {4, -1}, {5}}, {{3}, {5}, {9, -1}}};
+    const Polynomial h1 = {10, -3, 5};
+    const Polynomial h2 = {-4, -9, 14, -1};
+    EXPECT_EQ(h1, calculate_determinant(A1));
+    EXPECT_EQ(h2, calculate_determinant(A2));
+}
+
+TEST(PolynomialOperationTest, OperatorTimes) {
+    const Polynomial h1 = {-4, 17, -28, 22, -8, 1};
+    const Polynomial h2 = {-25, -10, -16, 32, -50, 37, 89, 74, 32, 17, 30};
+    EXPECT_EQ(h1, f1 * g1);
+    EXPECT_EQ(h2, f2 * g2);
+}
+
+TEST(PolynomialOperationTest, OperatorIntTimes) {
+    const Polynomial h1 = {2, -6, 6, -2};
+    EXPECT_EQ(h1, -2 * f1);
+    EXPECT_EQ(Polynomial{}, 0 * f2);
+}
+
+TEST(PolynomialOperationTest, OperatorAdditionAssignment) {
+    Polynomial h1 = {-1, 3}, h2 = {-5, 4, 0, -3, 1, 7, 6}, h3 = {-5, -1};
+    const Polynomial k1 = {3, -2, 1}, k2 = {0, 10, 8, -6, 6, 7, 6}, k3 = {-1};
+    h1 += g1;
+    h2 += g2;
+    h3 += g3;
+    EXPECT_EQ(k1, h1);
+    EXPECT_EQ(k2, h2);
+    EXPECT_EQ(k3, h3);
+}

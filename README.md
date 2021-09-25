@@ -26,6 +26,14 @@ make
 make test
 ```
 
+# Note
+
+現在、get_coefficientは多項式時間で動きません。  
+後ほど、多項式時間のアルゴリズムに置き換えます(実装が大変なため後回しにしています)。  
+Currently, "get_coefficient" is NOT a polynomial-time algorithm.  
+Later, we are going to replace it with a polynomial-time algorithm.  
+(The implementation of a polynomial-time algorithm is difficult, so we are putting it off).
+
 # Author
 
 * Sota Tsuji

@@ -41,3 +41,15 @@ Bint substitute_into_polynomial(const Polynomial& f, const int x);
 int sigma(const vector<Polynomial>& fs, const int alpha);
 int sigma(const vector<Polynomial>& fs, const Infinity inf);
 int get_number_of_roots_by_strum(const Polynomial& f);
+
+/*
+The following functions are tentative.
+Currently, "get_coefficient" is NOT a polynomial-time algorithm.
+Later, we are going to replace it with a polynomial-time algorithm.
+*/
+using PolynomialMatrix = vector<vector<Polynomial>>;
+Polynomial get_coefficient(const WeightedGraph& S);
+Polynomial calculate_determinant(const PolynomialMatrix& A);
+Polynomial operator*(const Polynomial& pol1, const Polynomial& pol2);
+Polynomial operator*(const int x, const Polynomial& pol);
+Polynomial& operator+=(Polynomial& self, const Polynomial& other);

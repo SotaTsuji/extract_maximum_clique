@@ -233,3 +233,81 @@ int get_number_of_roots_by_strum(const Polynomial& f) {
     }
     return sigma(ps, Infinity::Negative) - sigma(ps, -2);
 }
+
+/*
+The following functions are tentative.
+Currently, "get_coefficient" is NOT a polynomial-time algorithm.
+Later, we are going to replace it with a polynomial-time algorithm.
+*/
+Polynomial get_coefficient(const WeightedGraph& S) {
+    const Matrix A = get_double_adjacent_matrix(S);
+    PolynomialMatrix B;
+    for (auto i = 0; i < A.size(); ++i) {
+        vector<Polynomial> Bi(A[0].size());
+        for (auto j = 0; j < A[0].size(); ++j) {
+            Bi[j].push_back(-A[i][j]);
+            if (i == j) {
+                Bi[j].push_back(1);
+            }
+        }
+        B.push_back(Bi);
+    }
+    return simplify_coefficient(calculate_determinant(B));
+}
+
+Polynomial calculate_determinant(const PolynomialMatrix& A) {
+    if (A.size() == 1) {
+        return A[0][0];
+    }
+    int sign = 1;
+    Polynomial characteristic_polynomial;
+    for (auto k = 0; k < A.size(); ++k) {
+        PolynomialMatrix B(A.size() - 1);
+        for (auto i = 1; i < A.size(); ++i) {
+            for (auto j = 0; j < A.size(); ++j) {
+                if (k != j) {
+                    B[i - 1].push_back(A[i][j]);
+                }
+            }
+        }
+        characteristic_polynomial +=
+            sign * (A[0][k] * calculate_determinant(B));
+        sign *= -1;
+    }
+    return characteristic_polynomial;
+}
+
+Polynomial operator*(const int x, const Polynomial& pol) {
+    Polynomial pol1;
+    for (auto& p : pol) {
+        pol1.push_back(p * x);
+    }
+    while (!pol1.empty() && pol1.back() == 0) {
+        pol1.pop_back();
+    }
+    return pol1;
+}
+
+Polynomial operator*(const Polynomial& pol1, const Polynomial& pol2) {
+    Polynomial pol3(pol1.size() + pol2.size() - 1);
+    for (auto i = 0; i < pol1.size(); ++i) {
+        for (auto j = 0; j < pol2.size(); ++j) {
+            pol3[i + j] += pol1[i] * pol2[j];
+        }
+    }
+    return pol3;
+}
+
+Polynomial& operator+=(Polynomial& self, const Polynomial& other) {
+    for (auto i = 0; i < other.size(); ++i) {
+        if (i < self.size()) {
+            self[i] += other[i];
+        } else {
+            self.push_back(other[i]);
+        }
+    }
+    while (!self.empty() && self.back() == 0) {
+        self.pop_back();
+    }
+    return self;
+}

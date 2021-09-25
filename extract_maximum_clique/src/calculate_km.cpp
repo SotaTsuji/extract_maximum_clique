@@ -111,13 +111,13 @@ vector<int> sieve_of_Eratosthenes(const int k) {
     vector<int> primes(k - 1);
     iota(primes.begin(), primes.end(), 2);
     for (auto i = 0;; ++i) {
-        auto itr = primes.begin() + i;
+        auto itr = primes.cbegin() + i;
         const int divisor = *itr;
         if (divisor * divisor > k) {
             break;
         }
         ++itr;
-        while (itr != primes.end()) {
+        while (itr != primes.cend()) {
             if ((*itr) % divisor == 0) {
                 itr = primes.erase(itr);
             } else {

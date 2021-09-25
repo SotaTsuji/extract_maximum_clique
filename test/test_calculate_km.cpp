@@ -9,6 +9,33 @@
 
 using namespace std;
 
+const Polynomial f1 = {-1, 3, -3, 1}, g1 = {4, -5, 1},
+                 f2 = {-5, 4, 0, -3, 1, 7, 6}, g2 = {5, 6, 8, -3, 5},
+                 f3 = {-28, -55, 72, 13, -2}, g3 = {4, 1};
+
+TEST(PolynomialOperationTest, UnaryOperatorMinus) {
+    const Polynomial h1 = {1, -3, 3, -1};
+    const Polynomial h2 = {5, -4, 0, 3, -1, -7, -6};
+    EXPECT_EQ(h1, -f1);
+    EXPECT_EQ(h2, -f2);
+}
+
+TEST(PolynomialOperationTest, OperatorDivision) {
+    const Polynomial h1 = {2, 1};
+    const Polynomial h2 = {-56, 265, 150};
+    const Polynomial h3 = {-7, -12, 21, -2};
+    EXPECT_EQ(h1, f1 / g1);
+    EXPECT_EQ(h2, f2 / g2);
+    EXPECT_EQ(h3, f3 / g3);
+}
+
+TEST(PolynomialOperationTest, OperatorDivisionBint) {
+    const Polynomial f = {-28, -14, 98, 49, -21};
+    const Polynomial h = {4, 2, -14, -7, 3};
+    EXPECT_EQ(f1, f1 / 1);
+    EXPECT_EQ(h, f / -7);
+}
+
 TEST(GetMaximumCoefficient, AtLeast2) {
     EXPECT_EQ(4, get_maximum_coefficient(2));
     EXPECT_EQ(29'568'000'000, get_maximum_coefficient(11));
@@ -22,12 +49,8 @@ TEST(GetPrimeListTest, xxx) {
 }
 
 TEST(PolynomialDivisionTest, xxx) {
-    Polynomial f1 = {-1, 3, -3, 1};
-    Polynomial g1 = {4, -5, 1};
-    Polynomial f2 = {-5, 4, 0, -3, 1, 7, 6};
-    Polynomial g2 = {5, 6, 8, -3, 5};
-    tuple<Polynomial, Polynomial, Bint> output1 = {{2, 1}, {-9, 9}, 1};
-    tuple<Polynomial, Polynomial, Bint> output2 = {
+    const tuple<Polynomial, Polynomial, Bint> output1 = {{2, 1}, {-9, 9}, 1};
+    const tuple<Polynomial, Polynomial, Bint> output2 = {
         {-56, 265, 150}, {-345, -489, -1892, -3563}, 125};
     EXPECT_EQ(output1, polynomial_division(f1, g1));
     EXPECT_EQ(output2, polynomial_division(f2, g2));
@@ -62,4 +85,17 @@ TEST(DifferentialTest, xxx) {
     const Polynomial g_ = {-4, 14, 12, 4};
     EXPECT_EQ(f_, differential(f));
     EXPECT_EQ(g_, differential(g));
+}
+
+TEST(PolynomialOperationTest, Gcd) {
+    const Polynomial h1 = {-1, 1};
+    EXPECT_EQ(h1, gcd(f1, g1));
+    EXPECT_EQ(Polynomial(1, 1), gcd(f2, g2));
+}
+
+TEST(PolynomialOperationTest, Rem) {
+    const Polynomial h1 = {-9, 9};
+    const Polynomial h2 = {-345, -489, -1892, -3563};
+    EXPECT_EQ(h1, rem(f1, g1));
+    EXPECT_EQ(h2, rem(f2, g2));
 }

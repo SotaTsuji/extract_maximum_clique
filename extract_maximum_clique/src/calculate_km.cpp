@@ -10,6 +10,24 @@
 
 using namespace std;
 
+Polynomial operator-(Polynomial pol) {
+    for (auto& p : pol) {
+        p = -p;
+    }
+    return pol;
+}
+
+Polynomial operator/(const Polynomial& pol1, const Polynomial& pol2) {
+    return get<0>(polynomial_division(pol1, pol2));
+}
+
+Polynomial operator/(Polynomial pol, const Bint x) {
+    for (auto& p : pol) {
+        p /= x;
+    }
+    return pol;
+}
+
 // Algorithm 8
 Bint get_maximum_coefficient(const int n) {
     const int r = (n + 1) / 2;
@@ -108,4 +126,30 @@ Polynomial differential(const Polynomial& f) {
         f_.push_back(f[i] * i);
     }
     return f_;
+}
+
+Polynomial gcd(Polynomial f, Polynomial g) {
+    if (f.size() < g.size()) {
+        tie(f, g) = {g, f};
+    }
+    while (true) {
+        auto [_q, r, _c] = polynomial_division(f, g);
+        if (r.empty()) {
+            if (g.size() == 1) {
+                return Polynomial(1, 1);
+            } else {
+                Bint _gcd = gcd(g[0], g[1]);
+                for (auto i = 2; i < g.size(); ++i) {
+                    _gcd = gcd(_gcd, g[i]);
+                }
+                return g / _gcd;
+            }
+            return g;
+        }
+        tie(f, g) = {g, r};
+    }
+}
+
+Polynomial rem(const Polynomial& f, const Polynomial& g) {
+    return get<1>(polynomial_division(f, g));
 }

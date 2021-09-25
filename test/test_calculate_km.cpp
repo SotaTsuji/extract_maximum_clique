@@ -56,6 +56,12 @@ TEST(PolynomialDivisionTest, xxx) {
     EXPECT_EQ(output2, polynomial_division(f2, g2));
 }
 
+TEST(GetNumberOfRootsTest, xxx) {
+    const Polynomial f = {-24, -8, -6, 4, 20, 12, 2};
+    EXPECT_EQ(0, get_number_of_roots(f1));
+    EXPECT_EQ(3, get_number_of_roots(f));
+}
+
 TEST(SieveOfEratosthenesTest, AtLeast2) {
     const vector<int> primes1 = {2};
     const vector<int> primes2 = {2, 3, 5, 7, 11, 13, 17, 19, 23};
@@ -98,4 +104,26 @@ TEST(PolynomialOperationTest, Rem) {
     const Polynomial h2 = {-345, -489, -1892, -3563};
     EXPECT_EQ(h1, rem(f1, g1));
     EXPECT_EQ(h2, rem(f2, g2));
+}
+
+TEST(SubstituteIntoPolynomialTest, xxx) {
+    EXPECT_EQ(-1, substitute_into_polynomial(f1, 0));
+    EXPECT_EQ(115890, substitute_into_polynomial(f2, 5));
+}
+
+TEST(SigmaTest, RealNumber) {
+    vector<Polynomial> fs = {f1, g1, f2, g2, f3, g3};
+    EXPECT_EQ(5, sigma(fs, 0));
+    EXPECT_EQ(1, sigma(fs, -4));
+}
+
+TEST(SigmaTest, Infinity) {
+    vector<Polynomial> fs = {f1, g1, f2, g2, f3, g3};
+    EXPECT_EQ(2, sigma(fs, Infinity::Positive));
+    EXPECT_EQ(2, sigma(fs, Infinity::Negative));
+}
+
+TEST(GetNumberOfRootsByStrumTest, xxx) {
+    EXPECT_EQ(0, get_number_of_roots_by_strum(f2));
+    EXPECT_EQ(1, get_number_of_roots_by_strum(f3));
 }

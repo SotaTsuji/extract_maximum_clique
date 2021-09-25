@@ -86,6 +86,21 @@ tuple<Polynomial, Polynomial, Bint> polynomial_division(Polynomial f,
     return {q, f, c};
 }
 
+// Algorithm 12
+int get_number_of_roots(Polynomial f) {
+    int km = 0;
+    while (true) {
+        const auto f_ = differential(f);
+        const auto r = gcd(f, f_);
+        if (r.size() <= 1) {
+            km += get_number_of_roots_by_strum(f);
+            return km;
+        }
+        km += get_number_of_roots_by_strum(f / r);
+        f = r;
+    }
+}
+
 vector<int> sieve_of_Eratosthenes(const int k) {
     vector<int> primes(k - 1);
     iota(primes.begin(), primes.end(), 2);
@@ -152,4 +167,66 @@ Polynomial gcd(Polynomial f, Polynomial g) {
 
 Polynomial rem(const Polynomial& f, const Polynomial& g) {
     return get<1>(polynomial_division(f, g));
+}
+
+Bint substitute_into_polynomial(const Polynomial& f, const int x) {
+    Bint power = 1;
+    Bint n = 0;
+    for (auto i = 0; i < f.size(); ++i) {
+        n += f[i] * power;
+        power *= x;
+    }
+    return n;
+}
+
+int sigma(const vector<Polynomial>& fs, const int alpha) {
+    int count_of_sign_changes = 0;
+    int prev_sign = 0;
+    int i;
+    for (i = 0; i < fs.size() && prev_sign == 0; ++i) {
+        const Bint sigma_alpha = substitute_into_polynomial(fs[i], alpha);
+        prev_sign = sigma_alpha == 0 ? 0 : (sigma_alpha > 0 ? 1 : -1);
+    }
+    for (auto j = i; j < fs.size(); ++j) {
+        const Bint sigma_alpha = substitute_into_polynomial(fs[j], alpha);
+        const int current_sign =
+            sigma_alpha == 0 ? 0 : (sigma_alpha > 0 ? 1 : -1);
+        if (current_sign == -prev_sign) {
+            ++count_of_sign_changes;
+            prev_sign = current_sign;
+        }
+    }
+    return count_of_sign_changes;
+}
+
+int sigma(const vector<Polynomial>& fs, const Infinity inf) {
+    bool is_positive = inf == Infinity::Positive;
+    int count_of_sign_changes = 0;
+    int prev_sign =
+        fs[0].back() * ((is_positive || fs[0].size() % 2 == 1) ? 1 : -1) > 0
+            ? 1
+            : -1;
+    for (auto i = 1; i < fs.size(); ++i) {
+        const int current_sign =
+            fs[i].back() * ((is_positive || fs[i].size() % 2 == 1) ? 1 : -1) > 0
+                ? 1
+                : -1;
+        if (current_sign == -prev_sign) {
+            ++count_of_sign_changes;
+            prev_sign = current_sign;
+        }
+    }
+    return count_of_sign_changes;
+}
+
+int get_number_of_roots_by_strum(const Polynomial& f) {
+    vector<Polynomial> ps;
+    ps.push_back(f);
+    if (f.size() > 1) {
+        ps.push_back(differential(f));
+        for (auto j = 2; ps.back().size() > 1; ++j) {
+            ps.push_back(-rem(ps[j - 2], ps[j - 1]));
+        }
+    }
+    return sigma(ps, Infinity::Negative) - sigma(ps, -2);
 }

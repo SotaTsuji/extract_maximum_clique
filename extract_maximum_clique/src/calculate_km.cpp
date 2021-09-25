@@ -143,6 +143,18 @@ Polynomial differential(const Polynomial& f) {
     return f_;
 }
 
+Polynomial simplify_coefficient(const Polynomial& f) {
+    if (f.size() == 1) {
+        return Polynomial(1, 1);
+    } else {
+        Bint _gcd = gcd(f[0], f[1]);
+        for (auto i = 2; i < f.size(); ++i) {
+            _gcd = gcd(_gcd, f[i]);
+        }
+        return f / ((f.back() > 0 ? 1 : -1) * _gcd);
+    }
+}
+
 Polynomial gcd(Polynomial f, Polynomial g) {
     if (f.size() < g.size()) {
         tie(f, g) = {g, f};
@@ -150,16 +162,7 @@ Polynomial gcd(Polynomial f, Polynomial g) {
     while (true) {
         auto [_q, r, _c] = polynomial_division(f, g);
         if (r.empty()) {
-            if (g.size() == 1) {
-                return Polynomial(1, 1);
-            } else {
-                Bint _gcd = gcd(g[0], g[1]);
-                for (auto i = 2; i < g.size(); ++i) {
-                    _gcd = gcd(_gcd, g[i]);
-                }
-                return g / _gcd;
-            }
-            return g;
+            return simplify_coefficient(g);
         }
         tie(f, g) = {g, r};
     }

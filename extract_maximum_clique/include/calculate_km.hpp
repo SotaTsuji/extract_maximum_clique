@@ -34,6 +34,7 @@ Matrix get_double_adjacent_matrix(const WeightedGraph& S);
 // Polynomial get_coefficient_by_modulo(const WeightedGraph& S, const int p);
 // Polynomial merge_coefficients(const Polynomial& f, const Polynomial& g);
 Polynomial differential(const Polynomial& f);
+Polynomial simplify_coefficient(const Polynomial& f);
 Polynomial gcd(Polynomial f, Polynomial g);
 Polynomial rem(const Polynomial& f, const Polynomial& g);
 Bint substitute_into_polynomial(const Polynomial& f, const int x);

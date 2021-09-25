@@ -73,12 +73,11 @@ TEST(GetDoubleAdjacentMatrixTest, xxx) {
     WeightedGraph S1, S2;
     S1.v = {1, 2};
     S1.e = {{1, 2}};
-    S1.rw[{1, 2}] = 1;
+    S1.rw = {{{1, 2}, 1}};
     const Matrix A1 = {{0, 2}, {2, 0}};
     S2.v = {2, 3, 5};
     S2.e = {{2, 3}, {3, 5}};
-    S2.rw[{2, 3}] = 1;
-    S2.rw[{3, 5}] = 2;
+    S2.rw = {{{2, 3}, 1}, {{3, 5}, 2}};
     const Matrix A2 = {{0, 2, 0}, {2, 0, 1}, {0, 1, 0}};
     EXPECT_EQ(A1, get_double_adjacent_matrix(S1));
     EXPECT_EQ(A2, get_double_adjacent_matrix(S2));
@@ -91,6 +90,14 @@ TEST(DifferentialTest, xxx) {
     const Polynomial g_ = {-4, 14, 12, 4};
     EXPECT_EQ(f_, differential(f));
     EXPECT_EQ(g_, differential(g));
+}
+
+TEST(PolynomialOperationTest, SimplifyCoefficient) {
+    const Polynomial h3 = {28, 55, -72, -13, 2};
+    const Polynomial f = {3, -9, 0, -6, 15};
+    const Polynomial h = {1, -3, 0, -2, 5};
+    EXPECT_EQ(h3, simplify_coefficient(f3));
+    EXPECT_EQ(h, simplify_coefficient(f));
 }
 
 TEST(PolynomialOperationTest, Gcd) {

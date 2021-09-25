@@ -8,24 +8,26 @@
 #include <unordered_set>
 #include <vector>
 
-using namespace std;
-
+namespace extract_maximum_clique {
 using Vertex = int;
-using Vertices = vector<Vertex>;
-using Edge = pair<Vertex, Vertex>;
-using Edges = unordered_set<Edge>;
-using ReciprocalWeights = unordered_map<Edge, int>;
+using Vertices = std::vector<Vertex>;
+using Edge = std::pair<Vertex, Vertex>;
+using Edges = std::unordered_set<Edge>;
+using ReciprocalWeights = std::unordered_map<Edge, int>;
+}  // namespace extract_maximum_clique
 
 namespace std {
+using extract_maximum_clique::Edge;
 template <>
 class hash<Edge> {
    public:
-    size_t operator()(const pair<int, int>& x) const {
+    size_t operator()(const Edge& x) const {
         return hash<int>()(x.first) ^ hash<int>()(x.second);
     }
 };
 }  // namespace std
 
+namespace extract_maximum_clique {
 struct Graph {
     Vertices v;
     Edges e;
@@ -34,3 +36,4 @@ struct Graph {
 struct WeightedGraph : Graph {
     ReciprocalWeights rw;
 };
+}  // namespace extract_maximum_clique

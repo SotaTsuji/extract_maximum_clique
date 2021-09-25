@@ -7,14 +7,13 @@
 #include "../include/calculate_km.hpp"
 #include "../include/graph.hpp"
 
-using namespace std;
-
+namespace extract_maximum_clique {
 // Algorithm 1
 bool is_complete_graph(const WeightedGraph& T) {
-    const auto es = T.e.size(), vs = T.v.size();
-    if (es == (vs * vs - vs) / 2) {
-        for (auto i = 0; i < vs - 1; ++i) {
-            for (auto j = i + 1; j < vs; ++j) {
+    const auto n_e = T.e.size(), n_v = T.v.size();
+    if (n_e == (n_v * n_v - n_v) / 2) {
+        for (auto i = 0; i < n_v - 1; ++i) {
+            for (auto j = i + 1; j < n_v; ++j) {
                 if (T.rw.at({T.v[i], T.v[j]}) != 1) {
                     return false;
                 }
@@ -24,3 +23,4 @@ bool is_complete_graph(const WeightedGraph& T) {
     }
     return false;
 }
+}  // namespace extract_maximum_clique

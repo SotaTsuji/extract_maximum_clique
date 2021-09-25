@@ -9,11 +9,13 @@
 
 #include "graph.hpp"
 
-using namespace std;
-
+namespace extract_maximum_clique {
+using std::tuple;
+using std::vector;
 using Bint = boost::multiprecision::cpp_int;
 using Matrix = vector<vector<int>>;
 using Polynomial = vector<Bint>;
+using Polynomials = vector<Polynomial>;
 
 enum struct Infinity { Positive, Negative };
 
@@ -38,8 +40,8 @@ Polynomial simplify_coefficient(const Polynomial& f);
 Polynomial gcd(Polynomial f, Polynomial g);
 Polynomial rem(const Polynomial& f, const Polynomial& g);
 Bint substitute_into_polynomial(const Polynomial& f, const int x);
-int sigma(const vector<Polynomial>& fs, const int alpha);
-int sigma(const vector<Polynomial>& fs, const Infinity inf);
+int sigma(const Polynomials& fs, const int alpha);
+int sigma(const Polynomials& fs, const Infinity inf);
 int get_number_of_roots_by_strum(const Polynomial& f);
 
 /*
@@ -53,3 +55,4 @@ Polynomial calculate_determinant(const PolynomialMatrix& A);
 Polynomial operator*(const Polynomial& pol1, const Polynomial& pol2);
 Polynomial operator*(const int x, const Polynomial& pol);
 Polynomial& operator+=(Polynomial& self, const Polynomial& other);
+}  // namespace extract_maximum_clique

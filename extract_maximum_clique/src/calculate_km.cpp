@@ -101,6 +101,13 @@ int get_number_of_roots(Polynomial f) {
     }
 }
 
+// Algorithm 13
+int get_km(const WeightedGraph& S) {
+    const auto f = get_coefficient(S);
+    const int km = get_number_of_roots(f);
+    return km;
+}
+
 vector<int> sieve_of_Eratosthenes(const int k) {
     vector<int> primes(k - 1);
     iota(primes.begin(), primes.end(), 2);

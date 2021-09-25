@@ -67,6 +67,11 @@ TEST(GetNumberOfRootsTest, xxx) {
     EXPECT_EQ(3, get_number_of_roots(f));
 }
 
+TEST(GetKmTest, xxx) {
+    EXPECT_EQ(1, get_km(S1));
+    EXPECT_EQ(1, get_km(S2));
+}
+
 TEST(SieveOfEratosthenesTest, AtLeast2) {
     const vector<int> primes2 = {2, 3, 5, 7, 11, 13, 17, 19, 23};
     EXPECT_EQ(vector<int>{2}, sieve_of_Eratosthenes(2));

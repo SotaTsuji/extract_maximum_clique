@@ -27,7 +27,7 @@ vector<int> get_prime_list(const int n, const Bint c);
 tuple<Polynomial, Polynomial, Bint> polynomial_division(Polynomial f,
                                                         const Polynomial& g);
 int get_number_of_roots(Polynomial f);
-// int get_km(const WeightedGraph& S);
+int get_km(const WeightedGraph& S);
 
 vector<int> sieve_of_Eratosthenes(const int k);
 Matrix get_double_adjacent_matrix(const WeightedGraph& S);

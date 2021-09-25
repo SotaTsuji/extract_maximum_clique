@@ -12,6 +12,11 @@ using namespace std;
 const Polynomial f1 = {-1, 3, -3, 1}, g1 = {4, -5, 1},
                  f2 = {-5, 4, 0, -3, 1, 7, 6}, g2 = {5, 6, 8, -3, 5},
                  f3 = {-28, -55, 72, 13, -2}, g3 = {4, 1};
+const vector<Polynomial> fs = {f1, g1, f2, g2, f3, g3};
+const WeightedGraph S1 = {Vertices{1, 2}, Edges{{1, 2}},
+                          ReciprocalWeights{{{1, 2}, 1}}},
+                    S2 = {Vertices{2, 3, 5}, Edges{{2, 3}, {3, 5}},
+                          ReciprocalWeights{{{2, 3}, 1}, {{3, 5}, 2}}};
 
 TEST(PolynomialOperationTest, UnaryOperatorMinus) {
     const Polynomial h1 = {1, -3, 3, -1};
@@ -63,21 +68,13 @@ TEST(GetNumberOfRootsTest, xxx) {
 }
 
 TEST(SieveOfEratosthenesTest, AtLeast2) {
-    const vector<int> primes1 = {2};
     const vector<int> primes2 = {2, 3, 5, 7, 11, 13, 17, 19, 23};
-    EXPECT_EQ(primes1, sieve_of_Eratosthenes(2));
+    EXPECT_EQ(vector<int>{2}, sieve_of_Eratosthenes(2));
     EXPECT_EQ(primes2, sieve_of_Eratosthenes(25));
 }
 
 TEST(GetDoubleAdjacentMatrixTest, xxx) {
-    WeightedGraph S1, S2;
-    S1.v = {1, 2};
-    S1.e = {{1, 2}};
-    S1.rw = {{{1, 2}, 1}};
     const Matrix A1 = {{0, 2}, {2, 0}};
-    S2.v = {2, 3, 5};
-    S2.e = {{2, 3}, {3, 5}};
-    S2.rw = {{{2, 3}, 1}, {{3, 5}, 2}};
     const Matrix A2 = {{0, 2, 0}, {2, 0, 1}, {0, 1, 0}};
     EXPECT_EQ(A1, get_double_adjacent_matrix(S1));
     EXPECT_EQ(A2, get_double_adjacent_matrix(S2));
@@ -119,13 +116,11 @@ TEST(SubstituteIntoPolynomialTest, xxx) {
 }
 
 TEST(SigmaTest, RealNumber) {
-    vector<Polynomial> fs = {f1, g1, f2, g2, f3, g3};
     EXPECT_EQ(5, sigma(fs, 0));
     EXPECT_EQ(1, sigma(fs, -4));
 }
 
 TEST(SigmaTest, Infinity) {
-    vector<Polynomial> fs = {f1, g1, f2, g2, f3, g3};
     EXPECT_EQ(2, sigma(fs, Infinity::Positive));
     EXPECT_EQ(2, sigma(fs, Infinity::Negative));
 }
@@ -136,13 +131,6 @@ TEST(GetNumberOfRootsByStrumTest, xxx) {
 }
 
 TEST(GetCoefficientTest, xxx) {
-    const WeightedGraph S1 = {Vertices{1, 2}, Edges{{1, 2}},
-                              ReciprocalWeights{{{1, 2}, 1}}},
-                        S2 = {Vertices{2, 3, 5}, Edges{{2, 3}, {3, 5}},
-                              ReciprocalWeights{
-                                  {{2, 3}, 1},
-                                  {{3, 5}, 2},
-                              }};
     const Polynomial h1 = {-4, 0, 1};
     const Polynomial h2 = {0, -5, 0, 1};
     EXPECT_EQ(h1, get_coefficient(S1));

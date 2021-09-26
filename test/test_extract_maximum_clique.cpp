@@ -60,6 +60,15 @@ bool init = []() {
     return true;
 }();
 
+TEST(VerticesOperationTest, OperatorAdditionAssignmentVertex) {
+    Vertices v = {2, 4, 5, 7, 8, 9};
+    const Vertices v1 = {2, 3, 4, 5, 7, 8, 9}, v2 = {2, 3, 4, 5, 7, 8, 9, 11};
+    v += 3;
+    EXPECT_EQ(v1, v);
+    v += 11;
+    EXPECT_EQ(v2, v);
+}
+
 TEST(IsCompleteGraphTest, True) {
     EXPECT_TRUE(is_complete_graph(T1));
     EXPECT_TRUE(is_complete_graph(T2));
@@ -111,7 +120,7 @@ TEST(DeleteVertexTest, xxx) {
 }
 
 TEST(BinarySearchItrTest, xxx) {
-    Vertices v = {2, 4, 5, 7, 8, 9};
+    const Vertices v = {2, 4, 5, 7, 8, 9};
     EXPECT_EQ(5, *binary_search_itr(v.cbegin(), v.cend(), 5));
     EXPECT_EQ(2, *binary_search_itr(v.cbegin(), v.cend(), 2));
 }

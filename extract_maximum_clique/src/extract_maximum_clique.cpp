@@ -8,6 +8,12 @@
 #include "../include/graph.hpp"
 
 namespace extraction_of_maximum_clique {
+Vertices operator+=(Vertices& V, Vertex v) {
+    auto itr = lower_bound(V.cbegin(), V.cend(), v);
+    V.insert(itr, v);
+    return V;
+}
+
 // Algorithm 1
 bool is_complete_graph(const WeightedGraph& T) {
     const auto n_e = T.e.size(), n_v = T.v.size();
@@ -89,6 +95,20 @@ pair<WeightedGraph, Vertices> get_graph_keeping_km(WeightedGraph T) {
         }
     }
     return {T, Va};
+}
+
+// Algorithm 5
+pair<WeightedGraph, Vertices> get_graph_one_drop_km(const WeightedGraph& U) {
+    Vertices V_;
+    for (const auto v : U.v) {
+        auto U_ = delete_vertex(U, v);
+        tie(U_, V_) = get_graph_keeping_km(U_);
+        if (V_.size() > 1) {
+            V_ += v;
+            return {U_, V_};
+        }
+    }
+    throw std::runtime_error("not reach here");
 }
 
 Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last,

@@ -76,7 +76,23 @@ WeightedGraph delete_vertex(const WeightedGraph& T, const Vertex v) {
     return T_;
 }
 
-Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last, Vertex v) {
+// Algorithm 4
+pair<WeightedGraph, Vertices> get_graph_keeping_km(WeightedGraph T) {
+    const int km = get_km(T);
+    Vertices Va;
+    const auto V_ = T.v;
+    for (auto v : V_) {
+        auto T_ = delete_vertex(T, v);
+        if (get_km(T_) == km) {
+            Va.push_back(v);
+            T = T_;
+        }
+    }
+    return {T, Va};
+}
+
+Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last,
+                                Vertex v) {
     const auto itr = first + (last - first) / 2;
     if (*itr == v) {
         return itr;

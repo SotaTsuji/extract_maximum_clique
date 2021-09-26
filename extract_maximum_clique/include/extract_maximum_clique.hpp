@@ -10,7 +10,7 @@ namespace extraction_of_maximum_clique {
 using std::pair;
 
 bool is_complete_graph(const WeightedGraph& T);
-// WeightedGraph initialize_graph(WeightedGraph S);
+WeightedGraph initialize_graph(WeightedGraph S);
 // WeightedGraph delete_vertex(const WeightedGraph& T, const Vertex v);
 // pair<WeightedGraph, Vertices> get_graph_keeping_km(WeightedGraph T);
 // pair<WeightedGraph, Vertices> get_graph_one_drop_km(const WeightedGraph& U);

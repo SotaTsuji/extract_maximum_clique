@@ -23,4 +23,24 @@ bool is_complete_graph(const WeightedGraph& T) {
     }
     return false;
 }
+// Algorithm 2
+WeightedGraph initialize_graph(WeightedGraph S) {
+    int km = get_km(S);
+    int n_v = S.v.size();
+    for (auto i = 0; i < n_v - 1; ++i) {
+        for (auto j = i + 1; j < n_v; ++j) {
+            if (!S.e.contains({S.v[i], S.v[j]})) {
+                auto S_ = S;
+                S_.e.insert({S.v[i], S.v[j]});
+                S_.rw[{S.v[i], S.v[j]}] = 2;
+                const int km_ = get_km(S_);
+                if (km_ < km) {
+                    S = S_;
+                    km = km_;
+                }
+            }
+        }
+    }
+    return S;
+}
 }  // namespace extraction_of_maximum_clique

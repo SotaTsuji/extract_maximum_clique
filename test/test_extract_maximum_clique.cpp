@@ -51,22 +51,39 @@ const WeightedGraph
                             {{5, 7}, 1},
                             {{6, 7}, 1},
                             {{6, 8}, 1},
-                            {{7, 8}, 1}}};
-WeightedGraph S3;
+                            {{7, 8}, 1}}},
+    S3 = {Vertices{1, 2, 3, 4, 5, 6},
+          Edges{
+              {1, 2},
+              {1, 5},
+              {1, 6},
+              {2, 3},
+              {3, 4},
+              {4, 5},
+              {5, 6},
+          },
+          ReciprocalWeights{{{1, 2}, 1},
+                            {{1, 5}, 1},
+                            {{1, 6}, 1},
+                            {{2, 3}, 1},
+                            {{3, 4}, 1},
+                            {{4, 5}, 1},
+                            {{5, 6}, 1}}};
+WeightedGraph S4;
 bool init = []() {
-    S3 = S2;
-    S3.e.insert({1, 6});
-    S3.rw[{1, 6}] = 2;
+    S4 = S2;
+    S4.e.insert({1, 6});
+    S4.rw[{1, 6}] = 2;
     return true;
 }();
 
 TEST(VerticesOperationTest, OperatorAdditionAssignmentVertex) {
-    Vertices v = {2, 4, 5, 7, 8, 9};
+    Vertices V = {2, 4, 5, 7, 8, 9};
     const Vertices v1 = {2, 3, 4, 5, 7, 8, 9}, v2 = {2, 3, 4, 5, 7, 8, 9, 11};
-    v += 3;
-    EXPECT_EQ(v1, v);
-    v += 11;
-    EXPECT_EQ(v2, v);
+    V += 3;
+    EXPECT_EQ(v1, V);
+    V += 11;
+    EXPECT_EQ(v2, V);
 }
 
 TEST(IsCompleteGraphTest, True) {
@@ -80,43 +97,106 @@ TEST(IsCompleteGraphTest, False) {
 }
 
 TEST(InitializeGraphTest, xxx) {
-    const auto U1 = initialize_graph(S1);
-    EXPECT_EQ(S1, U1);
-    const auto U2 = initialize_graph(S2);
-    EXPECT_EQ(S3, U2);
+    const auto S1_ = initialize_graph(S1);
+    EXPECT_EQ(S1, S1_);
+    const auto S2_ = initialize_graph(S2);
+    EXPECT_EQ(S4, S2_);
 }
 
 TEST(DeleteVertexTest, xxx) {
-    const WeightedGraph V1 = {Vertices{1, 2, 3}, Edges{{1, 2}, {1, 3}, {2, 3}},
-                              ReciprocalWeights{
-                                  {{1, 2}, 1}, {{1, 3}, 1}, {{2, 3}, 1}}},
-                        V2 = {Vertices{1, 2, 3, 4, 6, 7, 8},
-                              Edges{{1, 2},
-                                    {1, 3},
-                                    {1, 4},
-                                    {1, 6},
-                                    {2, 3},
-                                    {2, 4},
-                                    {2, 7},
-                                    {3, 4},
-                                    {6, 7},
-                                    {6, 8},
-                                    {7, 8}},
-                              ReciprocalWeights{{{1, 2}, 1},
-                                                {{1, 3}, 1},
-                                                {{1, 4}, 1},
-                                                {{1, 6}, 2},
-                                                {{2, 3}, 1},
-                                                {{2, 4}, 1},
-                                                {{2, 7}, 2},
-                                                {{3, 4}, 1},
-                                                {{6, 7}, 1},
-                                                {{6, 8}, 1},
-                                                {{7, 8}, 1}}};
+    const WeightedGraph U1_ = {Vertices{1, 2, 3}, Edges{{1, 2}, {1, 3}, {2, 3}},
+                               ReciprocalWeights{
+                                   {{1, 2}, 1}, {{1, 3}, 1}, {{2, 3}, 1}}},
+                        U2_ = {Vertices{1, 2, 3, 4, 6, 7, 8},
+                               Edges{{1, 2},
+                                     {1, 3},
+                                     {1, 4},
+                                     {1, 6},
+                                     {2, 3},
+                                     {2, 4},
+                                     {2, 7},
+                                     {3, 4},
+                                     {6, 7},
+                                     {6, 8},
+                                     {7, 8}},
+                               ReciprocalWeights{{{1, 2}, 1},
+                                                 {{1, 3}, 1},
+                                                 {{1, 4}, 1},
+                                                 {{1, 6}, 2},
+                                                 {{2, 3}, 1},
+                                                 {{2, 4}, 1},
+                                                 {{2, 7}, 2},
+                                                 {{3, 4}, 1},
+                                                 {{6, 7}, 1},
+                                                 {{6, 8}, 1},
+                                                 {{7, 8}, 1}}};
     const auto U1 = delete_vertex(S1, 4);
-    EXPECT_EQ(V1, U1);
-    const auto U2 = delete_vertex(S3, 5);
-    EXPECT_EQ(V2, U2);
+    EXPECT_EQ(U1, U1_);
+    const auto U2 = delete_vertex(S4, 5);
+    EXPECT_EQ(U2, U2_);
+}
+
+TEST(GetGraphKeepingKmTest, xxx) {
+    const WeightedGraph U1_ = {Vertices{1, 2, 3, 4, 5},
+                               Edges{{1, 2},
+                                     {1, 3},
+                                     {1, 4},
+                                     {1, 5},
+                                     {2, 3},
+                                     {2, 4},
+                                     {2, 5},
+                                     {3, 4},
+                                     {3, 5},
+                                     {4, 5}},
+                               ReciprocalWeights{{{1, 2}, 1},
+                                                 {{1, 3}, 1},
+                                                 {{1, 4}, 1},
+                                                 {{1, 5}, 1},
+                                                 {{2, 3}, 1},
+                                                 {{2, 4}, 1},
+                                                 {{2, 5}, 1},
+                                                 {{3, 4}, 1},
+                                                 {{3, 5}, 1},
+                                                 {{4, 5}, 1}}},
+                        U2_ = {Vertices{1, 5, 6},
+                               Edges{
+                                   {1, 5},
+                                   {1, 6},
+                                   {5, 6},
+                               },
+                               ReciprocalWeights{
+                                   {{1, 5}, 1}, {{1, 6}, 1}, {{5, 6}, 1}}};
+    const Vertices V1_ = Vertices{6, 7, 8}, V2_ = Vertices{2, 3, 4};
+    const auto [U1, V1] = get_graph_keeping_km(S4);
+    EXPECT_EQ(U1, U1_);
+    EXPECT_EQ(V1, V1_);
+    const auto [U2, V2] = get_graph_keeping_km(S3);
+    EXPECT_EQ(U2, U2_);
+    EXPECT_EQ(V2, V2_);
+}
+
+TEST(GetGraphOneDropKmTest, xxx) {
+    const WeightedGraph
+        U1_ = {Vertices{2, 3, 4, 5},
+               Edges{{2, 3}, {2, 4}, {2, 5}, {3, 4}, {3, 5}, {4, 5}},
+               ReciprocalWeights{{{2, 3}, 1},
+                                 {{2, 4}, 1},
+                                 {{2, 5}, 1},
+                                 {{3, 4}, 1},
+                                 {{3, 5}, 1},
+                                 {{4, 5}, 1}}},
+        U2_ = {Vertices{5, 6},
+               Edges{
+                   {5, 6},
+               },
+               ReciprocalWeights{{{5, 6}, 1}}};
+    const Vertices V1_ = Vertices{1, 6, 7, 8}, V2_ = Vertices{1, 2, 3, 4};
+    const auto [U1, V1] = get_graph_one_drop_km(S4);
+    EXPECT_EQ(U1, U1_);
+    EXPECT_EQ(V1, V1_);
+    const auto [U2, V2] = get_graph_one_drop_km(S3);
+    EXPECT_EQ(U2, U2_);
+    EXPECT_EQ(V2, V2_);
 }
 
 TEST(ExtractMaximumCliqueTest, xxx) {

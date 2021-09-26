@@ -43,4 +43,47 @@ WeightedGraph initialize_graph(WeightedGraph S) {
     }
     return S;
 }
+
+// Algorithm 3
+WeightedGraph delete_vertex(const WeightedGraph& T, const Vertex v) {
+    const int km = get_km(T);
+    auto T_ = T;
+    T_.v.erase(binary_search_itr(T_.v.cbegin(), T_.v.cend(), v));
+    auto itr = T_.e.cbegin();
+    while (itr != T_.e.cend()) {
+        if ((*itr).first == v || (*itr).second == v) {
+            T_.rw.erase(*itr);
+            itr = T_.e.erase(itr);
+        } else {
+            ++itr;
+        }
+    }
+    if (get_km(T_) == km) {
+        for (auto i = 0; i < T_.v.size() - 1; ++i) {
+            for (auto j = i + 1; j < T_.v.size(); ++j) {
+                const Edge e = {T_.v[i], T_.v[j]};
+                if (!T_.e.contains(e)) {
+                    auto T__ = T_;
+                    T__.e.insert(e);
+                    T__.rw[e] = 2;
+                    if (get_km(T__) < km) {
+                        return T__;
+                    }
+                }
+            }
+        }
+    }
+    return T_;
+}
+
+Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last, Vertex v) {
+    const auto itr = first + (last - first) / 2;
+    if (*itr == v) {
+        return itr;
+    } else if (*itr > v) {
+        return binary_search_itr(first, itr, v);
+    } else {
+        return binary_search_itr(itr + 1, last, v);
+    }
+}
 }  // namespace extraction_of_maximum_clique

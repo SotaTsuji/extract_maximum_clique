@@ -111,6 +111,27 @@ pair<WeightedGraph, Vertices> get_graph_one_drop_km(const WeightedGraph& U) {
     throw std::runtime_error("not reach here");
 }
 
+// Algorithm 6
+WeightedGraph delete_vertices(const WeightedGraph& U, const Vertices& Vc) {
+    const int km = get_km(U);
+    for (auto v : Vc) {
+        int m = 0;
+        auto Td = U;
+        Td.v += v;
+        for (const auto v_ : U.v) {
+            const auto Td_ = delete_vertex(Td, v_);
+            if (get_km(Td_) == km) {
+                Td = Td_;
+                ++m;
+            }
+        }
+        if (m > 1) {
+            return Td;
+        }
+    }
+    return U;
+}
+
 Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last,
                                 Vertex v) {
     const auto itr = first + (last - first) / 2;

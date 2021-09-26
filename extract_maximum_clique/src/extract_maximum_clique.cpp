@@ -132,6 +132,42 @@ WeightedGraph delete_vertices(const WeightedGraph& U, const Vertices& Vc) {
     return U;
 }
 
+// Algorithm 7
+Vertices extract_maximum_clique(const Graph& G) {
+    if (G.v.empty()) {
+        return Vertices{};
+    }
+    if (G.e.empty()) {
+        auto v = G.v[0];
+        return Vertices{v};
+    }
+    const int n = G.v.size();
+    const auto prime_list = get_prime_list(n, get_maximum_coefficient(n));
+    WeightedGraph S = (WeightedGraph)G;
+    for (const auto e : S.e) {
+        S.rw[e] = 1;
+    }
+    const auto T = initialize_graph(S);
+    auto [U, Vc] = get_graph_keeping_km(T);
+    if (is_complete_graph(U)) {
+        return U.v;
+    }
+    if (Vc.empty()) {
+        tie(U, Vc) = get_graph_one_drop_km(U);
+        if (is_complete_graph(U)) {
+            return U.v;
+        }
+    }
+    do {
+        U = delete_vertices(U, Vc);
+        if (is_complete_graph(U)) {
+            break;
+        }
+        tie(U, Vc) = get_graph_one_drop_km(U);
+    } while (!is_complete_graph(U));
+    return U.v;
+}
+
 Vertices_citr binary_search_itr(Vertices_citr first, Vertices_citr last,
                                 Vertex v) {
     const auto itr = first + (last - first) / 2;

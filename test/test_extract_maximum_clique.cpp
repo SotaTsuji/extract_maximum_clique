@@ -119,6 +119,35 @@ TEST(DeleteVertexTest, xxx) {
     EXPECT_EQ(V2, U2);
 }
 
+TEST(ExtractMaximumCliqueTest, xxx) {
+    const Graph G1 = {Vertices{}, Edges{}}, G2 = {Vertices{4, 5, 9}, Edges{}},
+                G3 = {Vertices{1, 3}, Edges{{1, 3}}},
+                G4 = {Vertices{1, 2, 3}, Edges{{1, 2}, {1, 3}, {2, 3}}},
+                G5 = {Vertices{1, 2, 3, 4},
+                      Edges{{1, 2}, {1, 3}, {1, 4}, {2, 3}, {3, 4}}},
+                G6 = {Vertices{1, 2, 3, 4, 5, 6, 7, 8}, Edges{{1, 2},
+                                                              {1, 3},
+                                                              {1, 4},
+                                                              {1, 5},
+                                                              {2, 3},
+                                                              {2, 4},
+                                                              {2, 5},
+                                                              {3, 4},
+                                                              {3, 5},
+                                                              {4, 5},
+                                                              {5, 6},
+                                                              {5, 7},
+                                                              {6, 7},
+                                                              {6, 8},
+                                                              {7, 8}}};
+    EXPECT_EQ(0, extract_maximum_clique(G1).size());
+    EXPECT_EQ(1, extract_maximum_clique(G2).size());
+    EXPECT_EQ(2, extract_maximum_clique(G3).size());
+    EXPECT_EQ(3, extract_maximum_clique(G4).size());
+    EXPECT_EQ(3, extract_maximum_clique(G5).size());
+    EXPECT_EQ(5, extract_maximum_clique(G6).size());
+}
+
 TEST(BinarySearchItrTest, xxx) {
     const Vertices v = {2, 4, 5, 7, 8, 9};
     EXPECT_EQ(5, *binary_search_itr(v.cbegin(), v.cend(), 5));

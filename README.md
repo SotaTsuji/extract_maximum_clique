@@ -13,12 +13,26 @@ Implementation of Polynomial-time Extraction of the Maximum Clique Using Eigenva
 
 # Usage
 
+Test Run  
 ```bash
 mkdir build
 cd build
 cmake ..
 make
 make test
+```
+
+Sample Program  
+```C++
+#include <iostream>
+#include "extract_maximum_clique/extract_maximum_clique/include/extract_maximum_clique.hpp"
+using extraction_of_maximum_clique::extract_maximum_clique;
+using extraction_of_maximum_clique::Graph;
+
+int main() {
+    Graph G = {{1, 2, 3, 4}, {{1, 2}, {1, 3}, {1, 4}, {2, 3}, {3, 4}}};
+    std::cout << extract_maximum_clique(G).size();  // 3
+}
 ```
 
 # Note
@@ -42,7 +56,7 @@ The source code is licensed MIT, see LICENSE.
 # References
 
 Author - Yasunori Ohto  
-日本語版:  
+日本語版  
 https://www.researchgate.net/publication/348225014_gurafusupekutoruniyoruduoxiangshishijianzuidakurikuchouchu  
-English version:  
+English version  
 https://www.researchgate.net/publication/347522479_Polynomial-time_Extraction_of_the_Maximum_Clique_Using_Eigenvalue_Relation

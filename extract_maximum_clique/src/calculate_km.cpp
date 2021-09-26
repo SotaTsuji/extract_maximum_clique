@@ -8,7 +8,7 @@
 
 #include "../include/graph.hpp"
 
-namespace extract_maximum_clique {
+namespace extraction_of_maximum_clique {
 Polynomial operator-(Polynomial pol) {
     for (auto& p : pol) {
         p = -p;
@@ -320,4 +320,4 @@ Polynomial& operator+=(Polynomial& self, const Polynomial& other) {
     }
     return self;
 }
-}  // namespace extract_maximum_clique
+}  // namespace extraction_of_maximum_clique

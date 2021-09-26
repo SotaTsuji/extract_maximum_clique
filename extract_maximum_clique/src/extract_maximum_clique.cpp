@@ -7,7 +7,7 @@
 #include "../include/calculate_km.hpp"
 #include "../include/graph.hpp"
 
-namespace extract_maximum_clique {
+namespace extraction_of_maximum_clique {
 // Algorithm 1
 bool is_complete_graph(const WeightedGraph& T) {
     const auto n_e = T.e.size(), n_v = T.v.size();
@@ -23,4 +23,4 @@ bool is_complete_graph(const WeightedGraph& T) {
     }
     return false;
 }
-}  // namespace extract_maximum_clique
+}  // namespace extraction_of_maximum_clique

@@ -9,7 +9,7 @@
 
 #include "graph.hpp"
 
-namespace extract_maximum_clique {
+namespace extraction_of_maximum_clique {
 using std::tuple;
 using std::vector;
 using Bint = boost::multiprecision::cpp_int;
@@ -55,4 +55,4 @@ Polynomial calculate_determinant(const PolynomialMatrix& A);
 Polynomial operator*(const Polynomial& pol1, const Polynomial& pol2);
 Polynomial operator*(const int x, const Polynomial& pol);
 Polynomial& operator+=(Polynomial& self, const Polynomial& other);
-}  // namespace extract_maximum_clique
+}  // namespace extraction_of_maximum_clique

@@ -6,7 +6,7 @@
 
 #include "graph.hpp"
 
-namespace extract_maximum_clique {
+namespace extraction_of_maximum_clique {
 using std::pair;
 
 bool is_complete_graph(const WeightedGraph& T);
@@ -16,4 +16,4 @@ bool is_complete_graph(const WeightedGraph& T);
 // pair<WeightedGraph, Vertices> get_graph_one_drop_km(const WeightedGraph& U);
 // WeightedGraph delete_vertices(const WeightedGraph& U, const Vertices& Vc);
 // Vertices extract_maximum_clique(const Graph& G);
-}  // namespace extract_maximum_clique
+}  // namespace extraction_of_maximum_clique

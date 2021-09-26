@@ -8,7 +8,7 @@
 #include "graph.hpp"
 
 namespace {
-using namespace extract_maximum_clique;
+using namespace extraction_of_maximum_clique;
 
 const WeightedGraph T1 = {Vertices{1, 2}, Edges{{1, 2}},
                           ReciprocalWeights{{{1, 2}, 1}}},

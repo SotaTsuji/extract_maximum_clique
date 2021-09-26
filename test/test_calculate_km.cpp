@@ -8,7 +8,7 @@
 #include "graph.hpp"
 
 namespace {
-using namespace extract_maximum_clique;
+using namespace extraction_of_maximum_clique;
 
 const Polynomial f1 = {-1, 3, -3, 1}, g1 = {4, -5, 1},
                  f2 = {-5, 4, 0, -3, 1, 7, 6}, g2 = {5, 6, 8, -3, 5},

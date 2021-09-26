@@ -31,9 +31,20 @@ namespace extraction_of_maximum_clique {
 struct Graph {
     Vertices v;
     Edges e;
+    bool operator==(const Graph& other) const {
+        return (v == other.v) && (e == other.e);
+    }
+    bool operator!=(const Graph& other) const { return !(*this == other); }
 };
 
 struct WeightedGraph : Graph {
     ReciprocalWeights rw;
+    Graph j, k;
+    bool operator==(const WeightedGraph& other) const {
+        return (Graph){v, e} == (Graph){other.v, other.e} && (rw == other.rw);
+    }
+    bool operator!=(const WeightedGraph& other) const {
+        return !(*this == other);
+    }
 };
 }  // namespace extraction_of_maximum_clique
